@@ -38,7 +38,6 @@ custom_card_senoro_win:
       }
       const contact = states[variables.ulm_custom_card_senoro_win_entity].state;
       const handle = states[variables.ulm_custom_card_senoro_win_handle].state;
-      
       if (contact === "unavailable" || handle === "unavailable"){
         return variables.ulm_unavailable;
       } else if (contact === "off" && handle === "Closed"){
@@ -67,7 +66,6 @@ custom_card_senoro_win:
               [[[
                 const contact = states[variables.ulm_custom_card_senoro_win_entity].state;
                 const handle = states[variables.ulm_custom_card_senoro_win_handle].state;
-                
                 if (contact === "on"){
                   if (handle === "Closed"){
                     return 'rgba(var(--color-red), 1)';
@@ -82,7 +80,6 @@ custom_card_senoro_win:
               [[[
                 const contact = states[variables.ulm_custom_card_senoro_win_entity].state;
                 const handle = states[variables.ulm_custom_card_senoro_win_handle].state;
-                
                 if (contact === "on"){
                   if (handle === "Closed"){
                     return 'rgba(var(--color-red), 0.2)';
@@ -97,7 +94,6 @@ custom_card_senoro_win:
               [[[
                 const contact = states[variables.ulm_custom_card_senoro_win_entity].state;
                 const handle = states[variables.ulm_custom_card_senoro_win_handle].state;
-                
                 if (variables.ulm_custom_card_senoro_win_force_background_color) {
                   if (contact === "on" && (handle === "Tilted" || handle === "Open")){
                     var color = variables.ulm_custom_card_senoro_win_color;
@@ -112,7 +108,6 @@ custom_card_senoro_win:
       [[[
         const contact = states[variables.ulm_custom_card_senoro_win_entity].state;
         const handle = states[variables.ulm_custom_card_senoro_win_handle].state;
-        
         if (handle === "Tilted" || handle === "Open"){
            return `<ha-icon icon="mdi:lock-open-variant" style="width: 12px; height: 12px; color: var(--primary-background-color);"></ha-icon>`;
         } else if (contact === "off" && handle === "Closed"){
@@ -147,7 +142,6 @@ custom_card_senoro_win:
             [[[
               const contact = states[variables.ulm_custom_card_senoro_win_entity].state;
               const handle = states[variables.ulm_custom_card_senoro_win_handle].state;
-              
               if (contact === "off" && handle === "Closed"){
                 return "rgba(var(--color-green),1)";
               } else {
