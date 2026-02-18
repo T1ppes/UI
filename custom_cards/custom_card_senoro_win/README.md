@@ -19,33 +19,33 @@ Author: T1ppes - 2026
 ## Features
 
 - **Dual Sensor Display**: Shows both the reed contact status (open/closed) and handle position (closed/tilted/open)
-- **Smart State Detection**: 
-  - Locked: Contact closed AND handle closed
-  - Closed: Contact closed, handle tilted or open
-  - Tilted: Contact open AND handle tilted
-  - Open: Contact open AND handle open
-  - Manipulated: Contact open BUT handle closed (security alert)
+- **Smart State Detection**:
+    - Locked: Contact closed AND handle closed
+    - Closed: Contact closed, handle tilted or open
+    - Tilted: Contact open AND handle tilted
+    - Open: Contact open AND handle open
+    - Manipulated: Contact open BUT handle closed (security alert)
 - **Visual Indicators**:
-  - Color-coded icon and background based on state
-  - Lock/unlock badge icon on the sensor icon
-  - Optional battery level monitoring with warning indicator
-- **Customizable**: 
-  - Custom name and icon
-  - Optional background color highlighting
-  - Configurable battery warning thresholds
+    - Color-coded icon and background based on state
+    - Lock/unlock badge icon on the sensor icon
+    - Optional battery level monitoring with warning indicator
+- **Customizable**:
+    - Custom name and icon
+    - Optional background color highlighting
+    - Configurable battery warning thresholds
 
 ## Requirements
 
 - **Senoro.Win Sensor**: A door or window sensor from Senoro.de with both contact and handle position sensors
-- **Home Assistant Entities**: 
-  - Binary sensor for the reed contact (e.g., `binary_sensor.door_contact`)
-  - Sensor for the handle position (e.g., `sensor.door_handle`) - states should be "Closed", "Tilted", or "Open"
-  - Optional: Battery level sensor (e.g., `sensor.door_battery`)
+- **Home Assistant Entities**:
+    - Binary sensor for the reed contact (e.g., `binary_sensor.door_contact`)
+    - Sensor for the handle position (e.g., `sensor.door_handle`) - states should be "Closed", "Tilted", or "Open"
+    - Optional: Battery level sensor (e.g., `sensor.door_battery`)
 
 ## Variables
 
 | Variable | Default | Required | Notes |
-|----------|---------|----------|-------|
+| -------- | ------- | -------- | ----- |
 | `ulm_custom_card_senoro_win_handle` | | **yes** | Entity ID of the handle position sensor |
 | `ulm_custom_card_senoro_win_name` | `entity.friendly_name` | no | Custom name for the sensor |
 | `ulm_custom_card_senoro_win_icon` | `entity.icon` or `mdi:window-closed` | no | Custom icon |
@@ -59,9 +59,9 @@ Author: T1ppes - 2026
 ## States and Icons
 
 | Contact | Handle | State | Icon | Color |
-|---------|--------|-------|------|-------|
-| OFF | Closed | Locked | Lock | Default |
-| OFF | Tilted/Open | Closed | Unlock | Default |
+| ------- | ------ | ----- | ---- | ----- |
+| OFF | Closed | Locked | Lock | Green |
+| OFF | Tilted/Open | Closed | Lock | Default |
 | ON | Tilted | Tilted | Unlock | Blue/Custom |
 | ON | Open | Open | Unlock | Blue/Custom |
 | ON | Closed | Manipulated | Alert | Red |
@@ -95,6 +95,29 @@ Author: T1ppes - 2026
     ulm_custom_card_senoro_win_battery_warning_low: 10
 ```
 
+### Multiple Windows in a Grid
+
+```yaml
+- type: "grid"
+  columns: 2
+  cards:
+    - type: "custom:button-card"
+      template: custom_card_senoro_win
+      entity: binary_sensor.bedroom_window_contact
+      variables:
+        ulm_custom_card_senoro_win_handle: sensor.bedroom_window_handle
+        ulm_custom_card_senoro_win_name: "Bedroom"
+        ulm_custom_card_senoro_win_battery_level: sensor.bedroom_window_battery
+
+    - type: "custom:button-card"
+      template: custom_card_senoro_win
+      entity: binary_sensor.living_room_window_contact
+      variables:
+        ulm_custom_card_senoro_win_handle: sensor.living_room_window_handle
+        ulm_custom_card_senoro_win_name: "Living Room"
+        ulm_custom_card_senoro_win_battery_level: sensor.living_room_window_battery
+```
+
 ## Template Code
 
 ??? note "Template Code"
@@ -119,6 +142,8 @@ The card supports multiple languages. Available translations:
     --8<-- "custom_cards/custom_card_senoro_win/languages/DE.yaml"
     ```
 
+**Note**: Only include the language file you need. Delete the others to prevent loading order issues.
+
 ## Troubleshooting
 
 ### Handle States Not Working
@@ -128,6 +153,7 @@ Make sure your handle sensor reports states as "Closed", "Tilted", and "Open" (w
 ### Battery Icon Not Showing
 
 Verify that:
+
 1. The battery sensor entity ID is correct
 2. The battery level is a number (percentage)
 3. The battery level is below your warning threshold
