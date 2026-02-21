@@ -10,7 +10,7 @@ hide:
 
 This is a custom card for the [Senoro.Win door and window sensor](https://senoro.de/) that combines a reed contact with a handle position sensor. The card displays the current state with visual indicators and optional battery monitoring.
 
-![Senoro Win Card](senoro_win_card.png)
+![Senoro Win Card](../../docs/assets/img/senoro_win_card.png)
 
 ## Credits
 
